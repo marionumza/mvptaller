@@ -9,8 +9,174 @@
     ocb: https://github.com/OCA/OCB.git
     odoo: https://github.com/odoo/odoo.git
     openupgrade: https://github.com/OCA/OpenUpgrade.git
-  target: ocb $ODOO_VERSION
+  target: odoo $ODOO_VERSION
   merges:
-    - ocb $ODOO_VERSION
+    - odoo $ODOO_VERSION
     # Example of a merge of the PR with the number <PR>
     # - oca refs/pull/<PR>/head
+
+./product-pack:
+  defaults:
+    depth: $DEPTH_DEFAULT
+  remotes:
+    oca: https://github.com/OCA/product-pack.git
+  target: oca $ODOO_VERSION
+  merges:
+    - oca $ODOO_VERSION
+    - oca refs/pull/91/head
+    - oca refs/pull/90/head
+    - oca refs/pull/82/head
+
+./server-ux:
+  defaults:
+    depth: $DEPTH_DEFAULT
+  remotes:
+    oca: https://github.com/OCA/server-ux.git
+  target: oca $ODOO_VERSION
+  merges:
+    - oca $ODOO_VERSION
+    - oca refs/pull/528/head
+
+./ingadhoc-odoo-argentina:
+  defaults:
+    depth: $DEPTH_DEFAULT
+  remotes:
+    ingadhoc: https://github.com/ingadhoc/odoo-argentina.git
+  target: ingadhoc $ODOO_VERSION
+  merges:
+    - ingadhoc $ODOO_VERSION
+
+./ingadhoc-account-financial-tools:
+  defaults:
+    depth: $DEPTH_DEFAULT
+  remotes:
+    ingadhoc: https://github.com/ingadhoc/account-financial-tools.git
+  target: ingadhoc $ODOO_VERSION
+  merges:
+    - ingadhoc $ODOO_VERSION
+
+./ingadhoc-account-invoicing:
+  defaults:
+    depth: $DEPTH_DEFAULT
+  remotes:
+    ingadhoc: https://github.com/ingadhoc/account-invoicing.git
+  target: ingadhoc $ODOO_VERSION
+  merges:
+    - ingadhoc $ODOO_VERSION
+
+./ingadhoc-account-payment:
+  defaults:
+    depth: $DEPTH_DEFAULT
+  remotes:
+    ingadhoc: https://github.com/ingadhoc/account-payment.git
+  target: ingadhoc $ODOO_VERSION
+  merges:
+    - ingadhoc $ODOO_VERSION
+
+./ingadhoc-website:
+  defaults:
+    depth: $DEPTH_DEFAULT
+  remotes:
+    ingadhoc: https://github.com/ingadhoc/website.git
+  target: ingadhoc $ODOO_VERSION
+  merges:
+    - ingadhoc $ODOO_VERSION
+
+./ingadhoc-odoo-argentina-ce:
+  defaults:
+    depth: $DEPTH_DEFAULT
+  remotes:
+    ingadhoc: https://github.com/ingadhoc/odoo-argentina-ce.git
+  target: ingadhoc $ODOO_VERSION
+  merges:
+    - ingadhoc $ODOO_VERSION
+
+./ingadhoc-hr:
+  defaults:
+    depth: $DEPTH_DEFAULT
+  remotes:
+    ingadhoc: https://github.com/ingadhoc/hr.git
+  target: ingadhoc $ODOO_VERSION
+  merges:
+    - ingadhoc $ODOO_VERSION
+
+./ingadhoc-miscellaneous:
+  defaults:
+    depth: $DEPTH_DEFAULT
+  remotes:
+    ingadhoc: https://github.com/ingadhoc/miscellaneous.git
+  target: ingadhoc $ODOO_VERSION
+  merges:
+    - ingadhoc $ODOO_VERSION
+
+./ingadhoc-argentina-sale:
+  defaults:
+    depth: $DEPTH_DEFAULT
+  remotes:
+    ingadhoc: https://github.com/ingadhoc/argentina-sale.git
+  target: ingadhoc $ODOO_VERSION
+  merges:
+    - ingadhoc $ODOO_VERSION
+
+./ingadhoc-multi-company:
+  defaults:
+    depth: $DEPTH_DEFAULT
+  remotes:
+    ingadhoc: https://github.com/ingadhoc/multi-company.git
+  target: ingadhoc $ODOO_VERSION
+  merges:
+    - ingadhoc $ODOO_VERSION
+
+./ingadhoc-partner:
+  defaults:
+    depth: $DEPTH_DEFAULT
+  remotes:
+    ingadhoc: https://github.com/ingadhoc/partner.git
+  target: ingadhoc $ODOO_VERSION
+  merges:
+    - ingadhoc $ODOO_VERSION
+
+./ingadhoc-purchase:
+  defaults:
+    depth: $DEPTH_DEFAULT
+  remotes:
+    ingadhoc: https://github.com/ingadhoc/purchase.git
+  target: ingadhoc $ODOO_VERSION
+  merges:
+    - ingadhoc $ODOO_VERSION
+
+./ingadhoc-sale:
+  defaults:
+    depth: $DEPTH_DEFAULT
+  remotes:
+    ingadhoc: https://github.com/ingadhoc/sale.git
+  target: ingadhoc $ODOO_VERSION
+  merges:
+    - ingadhoc $ODOO_VERSION
+
+./ingadhoc-stock:
+  defaults:
+    depth: $DEPTH_DEFAULT
+  remotes:
+    ingadhoc: https://github.com/ingadhoc/stock.git
+  target: ingadhoc $ODOO_VERSION
+  merges:
+    - ingadhoc $ODOO_VERSION
+
+./ingadhoc-aeroo_reports:
+  defaults:
+    depth: $DEPTH_DEFAULT
+  remotes:
+    ingadhoc: https://github.com/ingadhoc/aeroo_reports.git
+  target: ingadhoc $ODOO_VERSION
+  merges:
+    - ingadhoc $ODOO_VERSION
+
+./codize-app-odoo-argentina:
+  defaults:
+    depth: $DEPTH_DEFAULT
+  remotes:
+    codize-app: https://github.com/codize-app/odoo-argentina.git
+  target: codize-app $ODOO_VERSION
+  merges:
+    - codize-app $ODOO_VERSION
