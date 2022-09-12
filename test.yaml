@@ -21,8 +21,42 @@ services:
     networks:
       default:
       globalwhitelist_shared:
+      inverseproxy_shared:
     labels:
       doodba.domain.main: "tes.skoll.ar"
+      traefik.enable: "true"
+      traefik.domain: "tes.skoll.ar"
+      traefik.forbiddenCrawlers-0.frontend.headers.customResponseHeaders:
+        "X-Robots-Tag:noindex, nofollow"
+      traefik.forbiddenCrawlers-0.frontend.rule: Host:tes.skoll.ar;Path:/{anything:.*}
+      traefik.longpolling-0.frontend.rule: Host:tes.skoll.ar;Path:/longpolling/{anything:.*}
+      traefik.longpolling-0.port: 8072
+      traefik.http.services.mvptaller-15-0-test-main.loadbalancer.server.port: 8069
+      traefik.http.services.mvptaller-15-0-test-longpolling.loadbalancer.server.port: 8072
+      traefik.http.routers.mvptaller-15-0-test-longpolling-0.rule:
+        Host(`tes.skoll.ar`) && PathPrefix(`/longpolling/`)
+      traefik.http.routers.mvptaller-15-0-test-longpolling-0.service: mvptaller-15-0-test-longpolling
+      traefik.http.routers.mvptaller-15-0-test-longpolling-0.middlewares: mvptaller-15-0-test-forceSecure
+      traefik.http.routers.mvptaller-15-0-test-longpolling-secure-0.rule:
+        Host(`tes.skoll.ar`) && PathPrefix(`/longpolling/`)
+      traefik.http.routers.mvptaller-15-0-test-longpolling-secure-0.service: mvptaller-15-0-test-longpolling
+      traefik.http.routers.mvptaller-15-0-test-longpolling-secure-0.middlewares: mvptaller-15-0-test-forceSecure
+      traefik.http.routers.mvptaller-15-0-test-longpolling-secure-0.tls: "true"
+      traefik.http.routers.mvptaller-15-0-test-longpolling-secure-0.tls.certResolver: letsencrypt
+      traefik.http.routers.mvptaller-15-0-test-forbiddenCrawlers-0.rule:
+        Host(`tes.skoll.ar`) && (PathPrefix(`/`))
+      traefik.http.routers.mvptaller-15-0-test-forbiddenCrawlers-0.service: mvptaller-15-0-test-main
+      traefik.http.routers.mvptaller-15-0-test-forbiddenCrawlers-0.middlewares:
+        mvptaller-15-0-test-buffering, mvptaller-15-0-test-compress,
+        mvptaller-15-0-test-forbid-crawlers, mvptaller-15-0-test-forceSecure
+      traefik.http.routers.mvptaller-15-0-test-forbiddenCrawlers-secure-0.rule:
+        Host(`tes.skoll.ar`) && (PathPrefix(`/`))
+      traefik.http.routers.mvptaller-15-0-test-forbiddenCrawlers-secure-0.service: mvptaller-15-0-test-main
+      traefik.http.routers.mvptaller-15-0-test-forbiddenCrawlers-secure-0.middlewares:
+        mvptaller-15-0-test-buffering, mvptaller-15-0-test-compress,
+        mvptaller-15-0-test-forbid-crawlers, mvptaller-15-0-test-forceSecure
+      traefik.http.routers.mvptaller-15-0-test-forbiddenCrawlers-secure-0.tls: "true"
+      traefik.http.routers.mvptaller-15-0-test-forbiddenCrawlers-secure-0.tls.certResolver: letsencrypt
     command:
       - odoo
       - --workers=2
@@ -45,8 +79,40 @@ services:
       default:
         aliases:
           - smtplocal
+      inverseproxy_shared:
     labels:
       doodba.domain.main: "tes.skoll.ar"
+      traefik.docker.network: "inverseproxy_shared"
+      traefik.enable: "true"
+      traefik.frontend.passHostHeader: "true"
+      traefik.mailhog-0.frontend.rule: Host:tes.skoll.ar;PathPrefixStrip:/smtpfake/
+      traefik.mailhog-0.port: 8025
+      # Mailhog service
+      traefik.http.middlewares.mvptaller-15-0-test-mailhog-stripprefix.stripPrefix.prefixes: /smtpfake/
+      traefik.http.services.mvptaller-15-0-test-mailhog.loadbalancer.server.port: 8025
+      traefik.http.middlewares.mvptaller-15-0-test-buffering.buffering.retryExpression:
+        IsNetworkError() && Attempts() < 5
+      traefik.http.middlewares.mvptaller-15-0-test-compress.compress: "true"
+      ? traefik.http.middlewares.mvptaller-15-0-test-forbid-crawlers.headers.customResponseHeaders.X-Robots-Tag
+      : "noindex, nofollow"
+      traefik.http.middlewares.mvptaller-15-0-test-forceSecure.headers.forceSTSHeader: "true"
+      traefik.http.middlewares.mvptaller-15-0-test-forceSecure.headers.sslRedirect: "true"
+      traefik.http.routers.mvptaller-15-0-test-mailhog-0.rule:
+        Host(`tes.skoll.ar`) && PathPrefix(`/smtpfake/`)
+      traefik.http.routers.mvptaller-15-0-test-mailhog-0.service: mvptaller-15-0-test-mailhog
+      traefik.http.routers.mvptaller-15-0-test-mailhog-0.middlewares:
+        mvptaller-15-0-test-buffering, mvptaller-15-0-test-compress,
+        mvptaller-15-0-test-forbid-crawlers, mvptaller-15-0-test-forceSecure,
+        mvptaller-15-0-test-mailhog-stripprefix
+      traefik.http.routers.mvptaller-15-0-test-mailhog-secure-0.rule:
+        Host(`tes.skoll.ar`) && PathPrefix(`/smtpfake/`)
+      traefik.http.routers.mvptaller-15-0-test-mailhog-secure-0.service: mvptaller-15-0-test-mailhog
+      traefik.http.routers.mvptaller-15-0-test-mailhog-secure-0.middlewares:
+        mvptaller-15-0-test-buffering, mvptaller-15-0-test-compress,
+        mvptaller-15-0-test-forbid-crawlers, mvptaller-15-0-test-forceSecure,
+        mvptaller-15-0-test-mailhog-stripprefix
+      traefik.http.routers.mvptaller-15-0-test-mailhog-secure-0.tls: "true"
+      traefik.http.routers.mvptaller-15-0-test-mailhog-secure-0.tls.certResolver: letsencrypt
     volumes:
       - "smtpconf:/etc/mailhog:ro,z"
     entrypoint: [sh, -c]
@@ -60,6 +126,9 @@ networks:
       encrypted: 1
 
   globalwhitelist_shared:
+    external: true
+
+  inverseproxy_shared:
     external: true
 
 volumes:
