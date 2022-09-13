@@ -23,9 +23,9 @@
   target: oca $ODOO_VERSION
   merges:
     - oca $ODOO_VERSION
-    - oca refs/pull/91/head
-    - oca refs/pull/90/head
-    - oca refs/pull/82/head
+    #- oca refs/pull/91/head
+    #- oca refs/pull/90/head
+    #- oca refs/pull/82/head
 
 ./server-ux:
   defaults:
@@ -35,7 +35,7 @@
   target: oca $ODOO_VERSION
   merges:
     - oca $ODOO_VERSION
-    - oca refs/pull/528/head
+   # - oca refs/pull/528/head
 
 ./ingadhoc-odoo-argentina:
   defaults:
