@@ -1,6 +1,7 @@
 server-backend: -'*'
 web: -'*'
 pos: -'*'
+product-pack: -'*'
 purchase-workflow: -'*'
 account-invoicing: -'*'
 server-auth: -'*'
