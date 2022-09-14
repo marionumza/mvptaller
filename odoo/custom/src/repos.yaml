@@ -17,7 +17,7 @@
 
 ./product-pack:
   defaults:
-    depth: $DEPTH_DEFAULT
+    depth: $DEPTH_MERGE
   remotes:
     oca: https://github.com/OCA/product-pack.git
   target: oca $ODOO_VERSION
@@ -29,7 +29,7 @@
 
 ./server-ux:
   defaults:
-    depth: $DEPTH_DEFAULT
+    depth: $DEPTH_MERGE
   remotes:
     oca: https://github.com/OCA/server-ux.git
   target: oca $ODOO_VERSION
